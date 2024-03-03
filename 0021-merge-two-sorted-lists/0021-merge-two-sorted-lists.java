@@ -10,19 +10,29 @@
  */
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        if(list1!= null && list2 != null){
-            if(list1.val<list2.val){
-                list1.next=mergeTwoLists(list1.next,list2);
-                return list1;
+        ListNode temp_node = new ListNode(0);
+        ListNode current_node = temp_node;
+        
+        while(list1 != null && list2 != null){
+            
+            if(list1.val < list2.val){
+                current_node.next = list1;
+                list1 = list1.next;
+            }else{
+                current_node.next = list2;
+                list2 = list2.next;
             }
-            else {
-                list2.next = mergeTwoLists(list1,list2.next);
-                return list2;
-            }
+            current_node = current_node.next;
         }
-        if(list1 == null){
-            return list2;
-        }else
-            return list1;
+        if (list1 != null){
+            current_node.next = list1;
+            list1 = list1.next;
+        }
+        if (list2 != null){
+            current_node.next = list2;
+            list2 = list2.next;
+        }
+        return temp_node.next;
+    
     }
 }
